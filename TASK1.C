@@ -51,6 +51,42 @@ string BlackBoxUnsafe::randomPwd(int l){
 	return pwd_;
 }
 
+
+BlackBoxSafe::BlackBoxSafe(int pwdLength, int symbSetSize) : BlackBoxUnsafe(pwdLength, symbSetSize){
+	if((symbSetSize < 1) || (symbSetSize > SYMBOLS.length()) ){
+		lengthSymbArray_ = SYMBOLS.length();
+	}else{
+		lengthSymbArray_ = symbSetSize;
+	}
+	// extract and save the subset of valid symbols
+
+	charSymbArray_ = new char [lengthSymbArray_ + 1];
+	strncpy(charSymbArray_, SYMBOLS.c_str(), lengthSymbArray_);
+	// create and save random password
+
+
+
+	pwd_ = sha256(this -> randomPwd(pwdLength));
+	//cout << "Serverpasswort gesetzt: " << pwd_ << endl;
+	//pwd_ = sha256(pwd_);
+	cout << "Zugehöriger SHA-Wert: " << pwd_ << endl;
+	return;
+}
+
+
+string BlackBoxSafe::input(string strPwd){
+
+	strPwd = sha256(strPwd);
+	//cout << "reales Passwort: " << strPwd << endl;
+	if(strPwd.compare(pwd_) == 0){
+		return string("ACCESS ACCEPTED");
+	}
+	return string("ACCESS DENIED");
+}
+
+
+
+
 void demoTASK1_00(){
 	string pwd("meinpassword");
 	cout << "pwd   : " << pwd << endl;
@@ -62,24 +98,14 @@ void demoTASK1_00(){
 }
 
 void demoTASK1_01(){
-	TASK1::BlackBoxUnsafe bs(4,4);
+	TASK1::BlackBoxSafe bs(4,4);
 	cout << bs.pwd_ << endl;
 
 	cout << bs.input(bs.pwd_) << endl;
 
 	return;
 }
-/*
-void StorePw(int a, int b){
-	TASK1::BlackBoxUnsafe bs(a,b);
-	cout << bs.pwd_ << endl;
 
-
-
-	return;
-
-}
-*/
 }
 
 

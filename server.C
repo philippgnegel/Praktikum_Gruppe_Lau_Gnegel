@@ -38,7 +38,7 @@ public:
 
 protected:
 	string myResponse(string input);
-	BlackBoxUnsafe *bbus = nullptr;
+	BlackBoxSafe *bbus = nullptr;
 
 };
 
@@ -101,21 +101,21 @@ string MyServer::myResponse(string input){
 		printf("res = %d, ",res);
 
 
-             if (res != 2) return string("Error: Argument nicht erkannt");
-             if (x < 3) return string("Error: Passwortlänge zu kurz");
+             if (res != 2) return string("Error: Argument von ServerPw(i_length,i_Symbols) nicht erkannt");
+             if (x < 1) return string("Error: Passwortlänge zu kurz");
              if (x > 30) return string ("Error: Passwortlänge zu groß");
              if (y < 2) return string("Error: Zeichensatz zu kurz");
              if (y > 62) return string ("Error: Zeichensatz zu lang");
 
 		     if(bbus == nullptr){
-		         bbus = new BlackBoxUnsafe(x,y);
+		         bbus = new BlackBoxSafe(x,y);
 		         printf("ServerPw Eingabewerte x: %d y: %d\n",x,y);
 		         cout << "Paswort: " << bbus->pwd_ << endl;
 		         return string("Eingabe i.o., neues Serverpasswort wurde initial gesetzt");
 		     } else {
 		    	 delete bbus;
 
-		    	 bbus = new BlackBoxUnsafe(x,y);
+		    	 bbus = new BlackBoxSafe(x,y);
 		    	 printf("ServerPw Eingabewerte x: %d y: %d\n",x,y);
 		    	 		    	 cout << "Paswort: " << bbus->pwd_<< endl;
 		    	 return string("Eingabe i.o., ServerPasswort wurde überschrieben");

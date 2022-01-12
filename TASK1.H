@@ -20,6 +20,7 @@
 #ifndef TASK1_H_
 #define TASK1_H_
 
+
 #include <string>
 
 using namespace std;
@@ -52,7 +53,7 @@ const string SYMBOLS = "ABCDEFGHIJKLMNOPQRTSTUVWXYZabcdefghijklmopqrstuvwxyz0123
  * \brief Defines the minimal length of a password
  *
  */
-const unsigned int MINIMAL_PWD_LENGTH = 4;
+const unsigned int MINIMAL_PWD_LENGTH = 1;      //Standardwert 4, zur besseren prüfbarkeit auf 1 gesetzt;
 
 /**
  *
@@ -110,14 +111,14 @@ protected:
 class BlackBoxSafe : public BlackBoxUnsafe{
 	/// \todo  Implementation of class BlackBoxSafe needs to be finalized.
 public:
-	BlackBoxSafe(int pwdLength, int symbSetSize) : BlackBoxUnsafe(pwdLength, symbSetSize){;};
-	virtual string input(string strPwd){return string("undefined");};
+	BlackBoxSafe(int pwdLength, int symbSetSize); // : BlackBoxUnsafe(pwdLength, symbSetSize){;};
+	virtual string input(string strPwd); //{return string("undefined");};
 };
 
 
 
 
-
+/*
 
 class MyBlackBoxSafe : public BlackBoxSafe{
 	/// \todo  Implementation of class BlackBoxSafe needs to be finalized.
@@ -126,7 +127,7 @@ public:
 	virtual string input(string strPwd){return string("undefined");};
 };
 
-
+*/
 /**
  *
  * \brief Simple demonstration of calculating
