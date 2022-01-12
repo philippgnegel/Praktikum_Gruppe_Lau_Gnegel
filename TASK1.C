@@ -69,7 +69,17 @@ void demoTASK1_01(){
 
 	return;
 }
+/*
+void StorePw(int a, int b){
+	TASK1::BlackBoxUnsafe bs(a,b);
+	cout << bs.pwd_ << endl;
 
+
+
+	return;
+
+}
+*/
 }
 
 

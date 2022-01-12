@@ -1,0 +1,5 @@
+<map id="TASK1::MyBlackBoxSafe" name="TASK1::MyBlackBoxSafe">
+<area shape="rect" id="node2" href="$dd/db4/classTASK1_1_1BlackBoxSafe.html" title="Implements a more safe password checker where only the password&#39;s checksum is stored. " alt="" coords="15,155,169,181"/>
+<area shape="rect" id="node3" href="$d9/df4/classTASK1_1_1BlackBoxUnsafe.html" title="Implements a unsafe password checker where the password is stored as plan text. " alt="" coords="7,80,177,107"/>
+<area shape="rect" id="node4" href="$de/d87/classTASK1_1_1IBlackBox.html" title="Interface class for password check classes. " alt="" coords="26,5,158,32"/>
+</map>

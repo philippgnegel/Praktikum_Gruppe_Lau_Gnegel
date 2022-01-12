@@ -142,7 +142,10 @@ void demoTASK1_00();
  */
 void demoTASK1_01();
 
-} // end namespace TASK1
+ // end namespace TASK1
 
-
+/*
+void StorePw(int a, int b);
+*/
+}
 #endif /* TASK1_H_ */

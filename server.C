@@ -4,6 +4,13 @@
  *  Created on: 11.09.2019
  *      Author: aml
  */
+#include "TASK1.H"
+
+#include <algorithm>
+#include <string>
+#include <sstream>
+#include <iostream>
+
 #include <cstdio> // standard input and output library
 #include <cstdlib> // this includes functions regarding memory allocation
 #include <cstring> // contains string functions
@@ -15,40 +22,167 @@
 #include <arpa/inet.h> // defines in_addr structure
 #include <sys/socket.h> // for socket creation
 #include <netinet/in.h> //contains constants and structures needed for internet domain addresses
+#include "SHA256.H"
 
 #include "SIMPLESOCKET.H"
+
+using namespace TASK1;
+
+
 
 class MyServer : public TCPserver{
 public:
 	MyServer(int portNmb, int maxDataRecv) : TCPserver(portNmb, maxDataRecv){;};
+    string rueckgabeSet(int laenge, int zeichen);
+    string CharToString(char myChar[]);
 
 protected:
 	string myResponse(string input);
+	BlackBoxUnsafe *bbus = nullptr;
+
 };
+
+
+
 
 
 int main(){
+	//using namespace TASK1;
 	srand(time(nullptr));
-	MyServer srv(2022,32);
+
+
+	MyServer srv(2025,32);
+
 	srv.run();
 }
 
+
+
+
 string MyServer::myResponse(string input){
 
-	if( input.compare(0,5,"start") == 0){
-		return string("ready");
+	/*
+    string input2 = input;
 
-	}else if (input.compare(0,5,"ServerPw") == 0){
-		//shoot (<int>,<int>), i.b. shoot(6,7)
+    int i = 0;
+    int ssize;
+    bool abbruch = false;
+
+
+    char zeichen = input[0];
+    int ascii =  int(zeichen);
+    cout << "ascii: " << ascii;
+
+	while (i < input.size() && !abbruch ){
+		if (input2[i] ==')'){
+			ssize = i;
+			abbruch = true;
+			cout << "abbruch!!!!" << endl;
+		}
+		cout << "aktuelles i: " << i << endl;
+	 i++;
+	}
+
+	input = input2.substr(0,ssize+1);
+
+	cout << "erase2: #" << input << "#    Stringlänge gekürzt;" << input.size() << endl;
+    */
+	if( input.compare(0,12,"ServerStatus") == 0){
+		return string("ready");
+        }
+
+
+
+	if (input.compare(0,8,"ServerPw") == 0){
+
 		int x; int y;
 		int res;
-		res = sscanf(input.c_str(),"ServerPw(%i,%i)",&x,&y);
+		res = sscanf(input.c_str(),"ServerPw(%d,%d)",&x,&y);
+		printf("res = %d, ",res);
 
-		if(res !=2) return string("ServerPwinit");
-		//x und y verarbeiten / shoot-methode aufrufen
-		return string("");
 
-	}else{
-		return string("erro");
+             if (res != 2) return string("Error: Argument nicht erkannt");
+             if (x < 3) return string("Error: Passwortlänge zu kurz");
+             if (x > 30) return string ("Error: Passwortlänge zu groß");
+             if (y < 2) return string("Error: Zeichensatz zu kurz");
+             if (y > 62) return string ("Error: Zeichensatz zu lang");
+
+		     if(bbus == nullptr){
+		         bbus = new BlackBoxUnsafe(x,y);
+		         printf("ServerPw Eingabewerte x: %d y: %d\n",x,y);
+		         cout << "Paswort: " << bbus->pwd_ << endl;
+		         return string("Eingabe i.o., neues Serverpasswort wurde initial gesetzt");
+		     } else {
+		    	 delete bbus;
+
+		    	 bbus = new BlackBoxUnsafe(x,y);
+		    	 printf("ServerPw Eingabewerte x: %d y: %d\n",x,y);
+		    	 		    	 cout << "Paswort: " << bbus->pwd_<< endl;
+		    	 return string("Eingabe i.o., ServerPasswort wurde überschrieben");
+
+		     }
+
+
+
+
+
 	}
+
+	if (input.compare(0,5,"PwTry") == 0){
+        if (bbus == nullptr) return string ("Error: kein passwort initialisiert");
+
+        cout << "PwTry wird durchlaufen" << endl;
+
+        const char *tempPasswortChar = input.c_str();
+        char PasswortChar[input.size()];
+        int res2;
+		res2 = sscanf(tempPasswortChar,"PwTry(%99[^)])", PasswortChar);
+
+		     if (res2 != 1){
+		    	 cout << "gelesenes Pw: " << PasswortChar <<"     res2= " << res2 << input << endl;
+		         return string("Error: Argument von PwTry(s) wurde nicht erkannt");
+		         }
+		     else if (res2 == 1){
+		    	 cout << "erkanntes Passwort: " << PasswortChar << "     res2= " << res2 << " char size" << input.size() << "  #" << input << "#" << endl;
+		         return(bbus -> input(string(PasswortChar)));
+		         }
+	     }
+
+
+    if(input.compare(0,9,"PwSymbols") == 0){
+    	if (bbus == nullptr) return string ("Error: Kein Passwort initialisiert, Zeichensatz konnte nicht gefunden werden");
+   return (bbus -> getSymbols());
+    }
+
+	else return ("Error: Befehl wurde nicht erkannt");
+
+
+
 };
+
+
+
+
+string MyServer::rueckgabeSet(int laenge, int zeichen){                      //Wandelt die Integer aus der Eingabe in einen
+                                                                             //String für die Rückmeldung an den Client um
+		string newresponse;
+		string satz = "Passwort wurde gesetzt: Länge: ";
+		string satz2 = ", Anzahl Zeichen: ";
+		stringstream slaenge;
+		stringstream szeichen;
+		slaenge << laenge;
+		szeichen << zeichen;
+		newresponse = satz + slaenge.str() + satz2 + szeichen.str();
+		return(newresponse);
+	}
+
+string CharToString(char myChar[]){
+	    string newString(myChar);
+	    return(newString);
+}
+
+
+
+
+
+

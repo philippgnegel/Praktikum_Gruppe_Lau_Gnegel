@@ -15,18 +15,16 @@
 
 #include <unistd.h>
 
-#include "SHA256.H"
+//#include "SHA256.H"
 #include "TASK1.H"
 
 
 using namespace std;
-
+using namespace TASK1;
 
 
 int main(){
-
-//demoForkTask4();
-
+	demoTASK1_01();
 	return 0;
 
 

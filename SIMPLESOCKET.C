@@ -9,7 +9,7 @@
 /**
 C++ client example using sockets
 */
-#include <iostream> //cout
+//cout
 #include <cstdio> //printf
 #include <cstring> //strlen
 #include <string> //string
@@ -23,6 +23,7 @@ C++ client example using sockets
 
 #include <cstdio> // standard input and output library
 #include <cstdlib> // this includes functions regarding memory allocation
+#include <iostream>
 #include <cstring> // contains string functions
 #include <cerrno> //It defines macros for reporting and retrieving error conditions through error codes
 #include <ctime> //contains various functions for manipulating date and time
@@ -148,7 +149,7 @@ TCPserver::TCPserver(int port, int maxDataSizeRecv){
 void TCPserver::run(){
 
 	string input, output;
-
+    cout << "Server wurde gestartet" << endl;
 	listen(clintListn_, 20);
 	clintConnt_ = accept(clintListn_, (struct sockaddr*)NULL, NULL);
 
@@ -164,6 +165,7 @@ void TCPserver::run(){
 		}
      }
     close(clintConnt_);
+    cout << "wait for connection" << endl;
     sleep(1);
 
 }

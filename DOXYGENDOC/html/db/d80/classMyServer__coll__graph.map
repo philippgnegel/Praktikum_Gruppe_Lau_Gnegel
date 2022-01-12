@@ -1,0 +1,5 @@
+<map id="MyServer" name="MyServer">
+<area shape="rect" id="node2" href="$dc/d0f/classTCPserver.html" title="The class defining the of a TCP/IP server. " alt="" coords="5,81,91,108"/>
+<area shape="rect" id="node3" href="$d9/df4/classTASK1_1_1BlackBoxUnsafe.html" title="Implements a unsafe password checker where the password is stored as plan text. " alt="" coords="115,81,285,108"/>
+<area shape="rect" id="node4" href="$de/d87/classTASK1_1_1IBlackBox.html" title="Interface class for password check classes. " alt="" coords="134,5,266,32"/>
+</map>
