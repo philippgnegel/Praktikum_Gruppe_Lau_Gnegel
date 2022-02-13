@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 
 	if (argc != 5){
 		cout << "Error: Kommandoparameter nicht erkannt: eingabe erfordert"
-				<< endl <<"./main <modus> <statistikversuche> <Passwortlänge> <Symbolanzahl>"
+				<< endl <<"./client <modus> <statistikversuche> <Passwortlänge> <Symbolanzahl>"
 				<< endl <<"Modus 1: Einzelprüfung" << endl << "Modus 2: Gruppenprüfung" << endl;
 
 		return 0;
