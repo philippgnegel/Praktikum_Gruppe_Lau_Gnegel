@@ -51,7 +51,7 @@ int main(){
 	srand(time(nullptr));
 
 
-	MyServer srv(2025,32);
+	MyServer srv(2025,64);
 
 	srv.run();
 }
@@ -104,7 +104,7 @@ string MyServer::myResponse(string input){
              if (res != 2) return string("Error: Argument von ServerPw(i_length,i_Symbols) nicht erkannt");
              if (x < 1) return string("Error: Passwortlänge zu kurz");
              if (x > 30) return string ("Error: Passwortlänge zu groß");
-             if (y < 2) return string("Error: Zeichensatz zu kurz");
+             if (y < 1) return string("Error: Zeichensatz zu kurz");
              if (y > 62) return string ("Error: Zeichensatz zu lang");
 
 		     if(bbus == nullptr){
